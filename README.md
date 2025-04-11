@@ -1,0 +1,1 @@
+This repository contains Java files and assignments completed during my 3rd and 4th semesters in Applied Computer Science. It showcases various projects and exercises that demonstrate key concepts and techniques in Java programming.

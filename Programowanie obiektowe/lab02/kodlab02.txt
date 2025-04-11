@@ -1,0 +1,112 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Game extends JFrame {
+    int diament = 0;  // Zmienna przechowująca liczbę diamentów
+    int proba = 0;  // Zmienna przechowująca liczbę prób
+    JLabel label;  // Deklaracja etykiety jako pole klasy
+
+    public Game(String playerName) {  // Konstruktor klasy Game
+        // Tworzenie przycisków i innych komponentów
+        JButton button = new JButton("kliknij tutaj!!");
+        JButton button2 = new JButton("a może tutaj!!");
+        label = new JLabel("         Próba: " + proba + " Liczba diamentów: " + diament);
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(true);
+
+        // Ustawienia okna
+        setSize(500, 500);
+        setLocation(50, 50);
+        setLayout(new GridLayout(2, 2, 10, 10));
+        setTitle("Bomba & Diament - Gracz " + playerName+", 20 prób ");
+
+
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+
+                Random rand = new Random(); // Stworzenie obiektu RANDOM
+                boolean randBool = rand.nextBoolean();
+                if(proba >= 20) {
+
+                    System.out.println("Twoja gra się skończyła, twoje diamenty:"+diament+" prób: "+ proba);
+                    proba = 0;
+                    diament = 0;
+//                    System.exit(0); zamyka okno gry
+                }
+                if (randBool == true) {
+                    diament++;
+                    proba++;
+                    textArea.setText("Szczęście się do ciebie uśmiechnęło!!\nGratuluję wygrałeś diament");
+                }else{
+                    proba++;
+                    textArea.setText("Tym razem masz pecha\n próbuj dalej :)");
+                    }
+
+                label.setText("         Próba: " + proba+ "licznik diamentów: " + diament);
+            }
+        });
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+
+                Random rand = new Random(); // Stworzenie obiektu RANDOM
+                boolean randBool = rand.nextBoolean();
+                if(proba >= 20) {
+
+                    System.out.println("Twoja gra się skończyła");
+                    proba = 0;
+                    diament = 0;
+//                    System.exit(0); zamyka okno gry
+                }
+                if (randBool == true) {
+                    diament++;
+                    proba++;
+                    textArea.setText("Szczęście się do ciebie uśmiechnęło!!\nGratuluję wygrałeś diament");
+                }else{
+                    proba++;
+                    textArea.setText("Tym razem masz pecha\n próbuj dalej :)");
+                }
+
+                label.setText("         Próba: " + proba+ "licznik diamentów: " + diament);
+            }
+        });
+
+        // Dodanie komponentów do okna
+        add(button);
+        add(button2);
+        add(label);
+        add(textArea);
+
+        // Ustawienia dla zamknięcia okna
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+// Klasa Main, która jest punktem wejścia do programu
+public class Main {
+    // Metoda main, która jest wywoływana przy uruchomieniu programu
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj swoje imię: ");
+        String playerName = scanner.nextLine();
+
+        new Game(playerName);
+    }
+}
